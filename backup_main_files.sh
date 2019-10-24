@@ -10,6 +10,15 @@
 
 DIR=${PWD}/Backup
 div='------------------------------------'
+RSYNC=$(sudo pacman -Q | grep rsync | cut -d " " -f 1)
+UPDATE_SCRIPT=update_archlinux.sh
+BACKUP_SCRIPT=${0##*/} #this script
+SCREEN_TEAR_SCRIPT=screen_tear_nvidia.sh
+
+if [ "${RSYNC}" != "rsync" ]; then
+  echo "Installing rsync"
+  sudo pacman -S rsync
+fi
 
 if
  test -d $DIR;
@@ -34,12 +43,12 @@ echo "$div"
 echo "copying important files..."
 cp -v ~/.bashrc ${DIR}/bashrc.cpy
 cp -v ~/.vimrc ${DIR}/vimrc.cpy
-cp -v ~/backup.sh ${DIR}/backup.sh
+cp -v ~/${BACKUP_SCRIPT} ${DIR}/${BACKUP_SCRIPT}
 cp -v /etc/iptables/iptables.rules ${DIR}/iptables.rules
-cp -v ~/screen_tear.sh ${DIR}/screen_tear.sh
+cp -v ~/${SCREEN_TEAR_SCRIPT} ${DIR}/${SCREEN_TEAR_SCRIPT}
 cp -v /etc/iptables/ip6tables.rules ${DIR}/ip6tables.rules
 cp -v ~/.ssh/config ${DIR}/config
-cp -v ~/update.sh ${DIR}/update.sh
+cp -v ~/${UPDATE_SCRIPT} ${DIR}/${UPDATE_SCRIPT}
 echo "finished copying important files"
 echo "$div"
 

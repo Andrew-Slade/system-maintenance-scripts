@@ -12,16 +12,16 @@ D2="------"
 
 PACKAGE=cut -d " " -f 1 # get package name not version
 # package existence
-NEOFETCH=sudo pacman -Q | grep neofetch | ${PACKAGE}
-FAIL2BAN=sudo pacman -Q | grep fail2ban | ${PACKAGE}
-IPTABLES=sudo pacman -Q | grep iptables | ${PACKAGE}
-JAILS=sudo fail2ban-client status # get jail status
+NEOFETCH=$(sudo pacman -Q | grep neofetch | ${PACKAGE})
+FAIL2BAN=$(sudo pacman -Q | grep fail2ban | ${PACKAGE})
+IPTABLES=$(sudo pacman -Q | grep iptables | ${PACKAGE})
+JAILS=$(sudo fail2ban-client status) # get jail status
 
 echo 'Basic system analysis start'
 echo "$D"
 
 # run neofetch or install then run neofetch
-if [ NEOFETCH == "neofetch" ]; then
+if [ NEOFETCH != "neofetch" ]; then
   neofetch
   echo "$D"
 else
@@ -50,7 +50,7 @@ echo "$D"
 
 # check iptables status
 echo 'iptabes(ipv4) status:'
-if [ IPTABLES == "iptables" ]; then
+if [ IPTABLES != "iptables" ]; then
   systemctl status iptables | grep active
   echo "$D"
 else
@@ -72,7 +72,7 @@ echo "$D"
 # check fail2ban service and jail count or install
 # then prompt user to configure
 echo "checking for fail2ban service"
-if [ FAIL2BAN == "fail2ban" ]; then
+if [ FAIL2BAN != "fail2ban" ]; then
   sudo systemctl status fail2ban
   echo "$D"
 else
