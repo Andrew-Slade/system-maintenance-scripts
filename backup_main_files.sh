@@ -39,7 +39,7 @@ rsync -rv ~/Pictures ${DIR}
 echo "finished syncing documents..."
 echo "$div"
 
-# copies over bashrc, iptables, ip6tables, backup script, and vimrc
+# copies over bashrc, iptables, ip6tables, backup script, vimrc, et cetera
 echo "copying important files..."
 cp -v ~/.bashrc ${DIR}/bashrc.cpy
 cp -v ~/.vimrc ${DIR}/vimrc.cpy
